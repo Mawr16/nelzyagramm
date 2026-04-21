@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Лента новостей</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #444;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .actions {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .actions a {
+            color: #555;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Лента новостей</h2>
+        <div class="nav" style="text-align:center;">
+            <a href="/profile">К профилю</a>
+            <a href="/logout">Выйти</a>
+        </div>
+
+        {% if posts %}
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <strong>{{ post.user.username }}:</strong> {{ post.content }}<br/>
+                        {% if post.image %}
+                            <img src="/image/{{ post.id }}" />
+                        {% endif %}
+                        <div class="actions">
+                            {% if session.get('user_id') == post.user_id %}
+                                <a href="/edit_post/{{ post.id }}">Редактировать</a>
+                                <a href="/delete_post/{{ post.id }}" onclick="return confirm('Удалить этот пост?');">Удалить</a>
+                            {% endif %}
+                        </div>
+                        {% if post.video %}
+    <div class="post-video">
+        <video controls style="max-width: 100%; max-height: 500px; border-radius: 8px; margin-top: 10px;">
+            <source src="/video/{{ post.id }}" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+{% endif %}
+
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align:center; margin-top:40px;">Пока постов нет.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

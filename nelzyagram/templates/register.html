@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Регистрация</title>
+    <style>
+        body {
+            background: #f0f2f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 11px 14px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 13px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 8px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        .feed-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .feed-link a {
+            color: #555;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .feed-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Регистрация</h2>
+        <form method="POST" action="/register">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <div class="links">
+            <a href="/login">Уже есть аккаунт? Войти</a>
+        </div>
+        <div class="feed-link">
+            <a href="/">← Лента новостей</a>
+        </div>
+    </div>
+</body>
+</html>

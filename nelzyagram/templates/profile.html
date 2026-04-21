@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Профиль</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            margin-top: 40px;
+            color: #555;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fafafa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .post-content {
+            margin-bottom: 10px;
+        }
+
+        .post-image {
+            margin-top: 10px;
+        }
+
+        .post-image img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .actions {
+            margin-top: 10px;
+        }
+
+        .actions a {
+            margin-left: 0;
+            margin-right: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .friend-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .friend-item a {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Добро пожаловать, {{ user.username }}!</h2>
+        <div class="nav">
+            <a href="/logout">Выйти</a>
+            <a href="/new_post">Создать пост</a>
+            <a href="/">Лента новостей</a>
+        </div>
+
+        <h3>Ваши посты:</h3>
+        {% if posts %}
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <div class="post-content">
+                            {{ post.content }}
+                        </div>
+                        {% if post.image %}
+                            <div class="post-image">
+                                <img src="/image/{{ post.id }}" alt="Изображение поста" />
+                            </div>
+                        {% endif %}
+                        {% if post.video %}
+    <div class="post-video">
+        <video controls style="max-width: 100%; max-height: 500px; border-radius: 8px; margin-top: 10px;">
+            <source src="/video/{{ post.id }}" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+{% endif %}
+
+                        <div class="actions">
+                            <a href="/edit_post/{{ post.id }}">Редактировать</a>
+                            <a href="/delete_post/{{ post.id }}" onclick="return confirm('Удалить этот пост?');">Удалить</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас еще нет постов.</p>
+        {% endif %}
+
+        <h3>Ваши друзья:</h3>
+        {% if user.friends %}
+            <ul>
+                {% for friend in user.friends %}
+                    <li class="friend-item">
+                        <span>{{ friend.username }}</span>
+                        <a href="/remove_friend/{{ friend.id }}">Удалить</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет друзей.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
